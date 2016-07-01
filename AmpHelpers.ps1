@@ -15,7 +15,11 @@ function _NewWebSession($cookiesValue){
     }
     $session
 }
-function Set-AmpCookies($cookiesValue){
+function Set-AmpCookies{
+    param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [string] $cookiesValue
+    )
     $global:_amp_session = _NewWebSession $cookiesValue
 }
 
@@ -50,7 +54,7 @@ function Get-AmpOffer {
         $PublisherId,
         [Parameter(Position=1)]
         [string]
-        $OfferIdentifier
+        $OfferMarketingUrlIdentifier
     )    
     process {
         $offerlist = Invoke-RestMethod `
@@ -65,10 +69,10 @@ function Get-AmpOffer {
         } else {
             $offers = $offerlist.Offers | ?{ $PublisherId.Contains($_.PublisherId)}
         }
-        if ([string]::IsNullOrEmpty($OfferIdentifier)){
+        if ([string]::IsNullOrEmpty($OfferMarketingUrlIdentifier)){
             $offers
         } else {
-            $offers | ?{ $_.OfferMarketingUrlIdentifier -like $OfferIdentifier }
+            $offers | ?{ $_.OfferMarketingUrlIdentifier -like $OfferMarketingUrlIdentifier }
         }
     }
 }
@@ -209,7 +213,7 @@ function Get-AmpOfferCategory{
         }
         $OfferIds | %{
             $currentOfferId=$_
-            $categories = Invoke-RestMethod `
+            Invoke-RestMethod `
                     -Method Get `
                     -Uri "https://publish.windowsazure.com/offers/$currentOfferId/categories" `
                     -Headers @{
