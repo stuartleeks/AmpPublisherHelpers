@@ -1,7 +1,7 @@
 # To get the cookiesValue, log into the publisher portal in the browser
 # then open the F12 tools and inspect a request in the network history
 # and grab the cookies :-)
-$cookiesValue = ".AspNet.Cookies=VC2cJSWN9_xDNIa2rflsO8MIvCOkNg2oqRtQFuHUtlERbHRQzsNsHBAZbeZ6tiSCZxRELyTFsWatViRndazvhQpskNvr7VwxpuZ996bjraf_IFpX2iLJCGZZxy2MLNDdwJBOOSFA0L0IX8fe_a8tRQJwdbk_jhGy5mm2R7QGG-wRjg4lWK-Zuw8f3Wyl3F13LKcK7riP9D8oyBlhbQseISlt2KPcmKK61u91IWCBlFSCgVnTGSuREeVo4sBoXPAGH1QQBvpoumhOdUU0airLNanmeMmmQ7itXEKTywIANnJewT5ADRb59A83XafnCzDu-DCO7-oHoREdpSlurzDG7Lf4LkygHh4Ddo9KAoie1fp8P_t7XURF3KSvdB3mwkKXZe-9bPf1ui8dBSa7pBwtwWruJ00_rPTtmFZOlHmC9HNaBxvetzXVJq-ReB7JjuZY26P4-fF2-G_WsFAmDxTNEqcF4dGKirB4BpP2XJ_cX8yHRHBRk2WasSQ0pGzMIH2SVv_KpewTI2jkd2VOtvsYHYKRjf4lxSorZSg_5pCAxWnZUoyRkEqs7u7QbuUHN87Gsa0ioTH3kwIm9Wlgu_Y_DvrPoXb6CBuyI-ieliVrA7tiiIey7V3YpCvsO-NjidYww5CQr01t6rQzxfS4JsuqCT6lX2_iXY6moCQWlCY66o0oaere7O5LvK_Z0YzSmCxPdJlQYUELC-ZR00oh2fficTa3DRaX7loZ7cwQdtATtlVPAxNgbFWIplQnMlmIG7Qx25bM_6sdaFs_fIGzMxkv3a2uDqoWmYqvmtoi_l3oADS1OZqV49mfyk3vT0Ww7upA3TzSR8ajiuSUF7RhVTwZmmVwaYxpNA4PxbD1kIGJMlT_DbGOsjYUIdkQRLH6MMkHi_xy8Omr0dE5MLYRXZg0txK_dFW1odSOtT7fsUwIVw-3dPabx3pXJ71x_1-d9Q3NpVinZY2SgDxFhK_PXmehQZoJG9Fqq_vQpYadCn_Y0YeASIc8vGiJkACGgFXgb1AzBfUb2czgXz7WzLE6aflCclm20TeqN_UxjX6fzLjsC6RqRxJnxXFUMkGAYPEvlINMYMXq8bxG2AkYEAxNx4nrDbp7QwPRXY-N7hHkJo2kmPZYYPl-; ai_user=nQV/Y|2016-07-01T08:09:38.205Z; ai_session=FLWkE|1467360578328|1467360631617"
+$cookiesValue = "ai_user=gOUpJ|2016-07-01T08:07:56.142Z; ai_session=nl0vB|1467367618148|1467368059469; .AspNet.Cookies=7aGM-K2w6XG2sfN9wzTbrgsor1PDgkBOtAmHLUpIFElZHI0kqEUEPx8Sx6iEc7VbYRq_bh5BvM8_xZqwKzQNCwHaY8gNIwPym5xRpU-jf3JWRrqhHQn6FNjgqUzkuqbrZVFuEkcTMRQKpYwdGtPKT9YGzlxYu-CbVP0h4VNn4XTRBGx5wRWgSCrvZ38L81QQstpwYMDgKLTo47PLTOD2menLbVlIGxd2auLs772uzli8ltBnYNefbcyJ-BAKd5NTiLC82cBGg-29wUobET2ecLodHGTy4gJi6_spH37XPUTkFwuMIg9NGQqn5WjOrYmK7gDEdADonobypo76lUXq2yQ9bAHl14Tfp-UkMK1IsXhnZz1A77lNFQB8EbUKmdhUKkPMIo93_19GdxW-or6UhtKP2xXy9rUqJTHqjG8qBDbLiSwKGeTqT_iRAy4C55rsoEvntOV84IQTPmBv4ICUFYy-kXPOxTm3dUmJmPqFhwxJPaayB_OZ2UvZHQ-nXbn1wiT7e4izMVInS1ZcAmxRa_L-y6t59YDRuBBZN0LY4IfUiz4d11pqkme7A9hx1lrqjOzM9FYSA2vKBgMDqblt_swSL9c4isBbWwguUQynQzThCoaRxlGgnJcY9daoMsqPcq4DfSMVm9ZL_cYsvEQK_Z47C1jNzW7avWpBMnfgs87ltBEb0mY-VeFvJe0e7JL4dpv7fVghdvVuKIUomopDYyyLAlaBLe5KRX0oNukPoZh2McFzJL3xRKrkJpdKhKH0TqGIj1aoJIDUyvhVYjQqpzhz9ngvscaOluYDsGbcTH84xkcOvLjsZ9dlAiiFP9IerXV9vW0Hi3HY-xHEDpN6DBqoDmNMFVMRA18lLrIS7nisHYbNP33jqZQCSYX9dWeRzyhsj6QfFCNe7SCfTiEJ7c0UqsbxmUAwfv3npjtMUBNOWedUc9zTBl5_zRL3dLSzxgR7GFg_BhIottFXEEr04TAdavJ8KeIWLIwUMVPisughxch9Dg-xjQHWHOg8WbizYKPCTkHbRs7XQy1F259NnaxboufojPAHEsXdBPyAhUiySmFxxaJmOwE1n_s0QNgoV3VHVfC-pF8HDMFSNO2kXE6qWSmuZ4fGHBFNrQAUvAV0bTBB"
 
 
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
@@ -19,11 +19,46 @@ $cookiesValue.Split(";") | %{
     $session.Cookies.Add($cookie)
 }
 
-Invoke-RestMethod `
+$user = Invoke-RestMethod `
         -Method Get `
-        -Uri "https://publish.windowsazure.com/offers/10bc6598-7a23-4bfd-89ac-4cfc168ff3f7/history" `
+        -Uri "https://publish.windowsazure.com/user" `
+        -Headers @{
+            "Accept"= "application/json, text/javascript, */*; q=0.01"
+        } `
+        -WebSession $session
+$user
+$user.AccessiblePublishers | ft
+
+$offerlist = Invoke-RestMethod `
+        -Method Get `
+        -Uri "https://publish.windowsazure.com/offers/list" `
         -Headers @{
             "Accept"= "application/json, text/javascript, */*; q=0.01"
         } `
         -WebSession $session
 
+
+
+$offerlist.Offers | ft
+
+
+# https://publish.windowsazure.com/checkselleraccountstatus/362a2ee8-015a-4b57-91fe-a51bf2ac5153 # Guid comes from $user.AccessiblePulishers[0].OwnerUserAccountId
+
+
+# GUIDs are OfferDraftId from offerlist.Offers
+
+# https://publish.windowsazure.com/offers/f131cc3c-5dcd-4e83-ad05-2f20af91604b/serviceplans
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/supportandlegal
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/marketingmaterials/en-US
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/prices
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/categories
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/staging/progress
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/pendingapproval/progress
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46
+# https://publish.windowsazure.com/offers/c81b11c4-d526-4d98-8152-4769420e4b46/history
+
+
+# https://publish.windowsazure.com/virtualmachines/8d6e72d9-c02c-4600-9c56-228f66143df4/details
+
+
+# https://publish.windowsazure.com/offers/fcbe00d1-9ece-43a8-b423-0f260e85ab70/topologies
