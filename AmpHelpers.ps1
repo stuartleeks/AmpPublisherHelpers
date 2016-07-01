@@ -45,18 +45,32 @@ function Get-AmpPublisher{
 }
 function Get-AmpOffer {
     param(
-        [Parameter(Mandatory=$True, Position=0)]
+        [Parameter(Position=0, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $PublisherId,
+        [Parameter(Position=1)]
         [string]
-        $PublisherId
+        $OfferIdentifier
     )    
-    $offerlist = Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/list" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $global:_amp_session
-    $offerlist.Offers | ?{ $_.PublisherId -eq $PublisherId}
+    process {
+        $offerlist = Invoke-RestMethod `
+                -Method Get `
+                -Uri "https://publish.windowsazure.com/offers/list" `
+                -Headers @{
+                    "Accept"= "application/json, text/javascript, */*; q=0.01"
+                } `
+                -WebSession $global:_amp_session
+        if($PublisherId.Length -eq 0){
+            $offers = $offerlist.Offers    
+        } else {
+            $offers = $offerlist.Offers | ?{ $PublisherId.Contains($_.PublisherId)}
+        }
+        if ([string]::IsNullOrEmpty($OfferIdentifier)){
+            $offers
+        } else {
+            $offers | ?{ $_.OfferMarketingUrlIdentifier -like $OfferIdentifier }
+        }
+    }
 }
 # function Get-AmpOffer($OfferId){
 #     Invoke-RestMethod `
@@ -69,7 +83,8 @@ function Get-AmpOffer {
 # }
 function Get-AmpOfferServicePlan{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
+        [Parameter(Mandatory=$True, Position=0, ValueFromPipelineByPropertyName)]
+        [Alias("OfferDraftId")]
         [string]
         $OfferId
     )
