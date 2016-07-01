@@ -40,7 +40,7 @@ function Get-AmpPublisher{
     if ([string]::IsNullOrEmpty($PublisherName)){
         $publishers
     } else {
-        $publishers  | ?{ $_.Namespace -eq $PublisherName} | select -First 1
+        $publishers  | ?{ $_.Namespace -like $PublisherName} | select -First 1
     }
 }
 function Get-AmpOffer {
@@ -54,12 +54,12 @@ function Get-AmpOffer {
     )    
     process {
         $offerlist = Invoke-RestMethod `
-                -Method Get `
-                -Uri "https://publish.windowsazure.com/offers/list" `
-                -Headers @{
-                    "Accept"= "application/json, text/javascript, */*; q=0.01"
-                } `
-                -WebSession $global:_amp_session
+                            -Method Get `
+                            -Uri "https://publish.windowsazure.com/offers/list" `
+                            -Headers @{
+                                "Accept"= "application/json, text/javascript, */*; q=0.01"
+                            } `
+                            -WebSession $global:_amp_session
         if($PublisherId.Length -eq 0){
             $offers = $offerlist.Offers    
         } else {
@@ -83,117 +83,207 @@ function Get-AmpOffer {
 # }
 function Get-AmpOfferServicePlan{
     param(
-        [Parameter(Mandatory=$True, Position=0, ValueFromPipelineByPropertyName)]
-        [Alias("OfferDraftId")]
-        [string]
-        $OfferId
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
+        $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId
     )
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/servicePlans" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $global:_amp_session
+    process{
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            Invoke-RestMethod `
+                    -Method Get `
+                    -Uri "https://publish.windowsazure.com/offers/$currentOfferId/servicePlans" `
+                    -Headers @{
+                        "Accept"= "application/json, text/javascript, */*; q=0.01"
+                    } `
+                    -WebSession $global:_amp_session
+        }
+    }
 }
 function Get-AmpOfferSupportAndLegal{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
-        [string]
-        $OfferId
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
+        $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId
     )
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/supportandlegal" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $global:_amp_session
+    process{
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            Invoke-RestMethod `
+                    -Method Get `
+                    -Uri "https://publish.windowsazure.com/offers/$currentOfferId/supportandlegal" `
+                    -Headers @{
+                        "Accept"= "application/json, text/javascript, */*; q=0.01"
+                    } `
+                    -WebSession $global:_amp_session
+        }
+    }
 }
 function Get-AmpOfferMarketingMaterial{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
-        [string]
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
         $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId,
         [Parameter(Mandatory=$True, Position=1)]
         [string]
         $Language
     )
-
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/marketingmaterials/$Language" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $global:_amp_session
+    process{
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            Invoke-RestMethod `
+                    -Method Get `
+                    -Uri "https://publish.windowsazure.com/offers/$currentOfferId/marketingmaterials/$Language" `
+                    -Headers @{
+                        "Accept"= "application/json, text/javascript, */*; q=0.01"
+                    } `
+                    -WebSession $global:_amp_session
+        }
+    }
 }
 function Get-AmpOfferPrice{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
-        [string]
-        $OfferId
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
+        $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId
     )
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/prices" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $global:_amp_session
+    process{
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            Invoke-RestMethod `
+                    -Method Get `
+                    -Uri "https://publish.windowsazure.com/offers/$currentOfferId/prices" `
+                    -Headers @{
+                        "Accept"= "application/json, text/javascript, */*; q=0.01"
+                    } `
+                    -WebSession $global:_amp_session
+        }
+    }
 }
 function Get-AmpOfferCategory{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
-        [string]
-        $OfferId
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
+        $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId
     )
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/categories" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $global:_amp_session
+    process{
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            $categories = Invoke-RestMethod `
+                    -Method Get `
+                    -Uri "https://publish.windowsazure.com/offers/$currentOfferId/categories" `
+                    -Headers @{
+                        "Accept"= "application/json, text/javascript, */*; q=0.01"
+                    } `
+                    -WebSession $global:_amp_session `
+                | select -ExpandProperty AzureStore
+        }
+    }
 }
 function Get-AmpOfferPublishProgress{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
         $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId,
         [Parameter(Mandatory=$True,ParameterSetName="Staging")]
         [switch]$Staging,
         [Parameter(Mandatory=$True,ParameterSetName="Production")]
         [switch]$Production
     )
-    if ($Staging){
-        $target = "staging"
+    process{
+        if ($Staging){
+            $target = "staging"
+        }
+        if ($Production){
+            $target = "pendingapproval"
+        }
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            Invoke-RestMethod `
+                -Method Get `
+                -Uri "https://publish.windowsazure.com/offers/$currentOfferId/$target/progress" `
+                -Headers @{
+                    "Accept"= "application/json, text/javascript, */*; q=0.01"
+                } `
+                -WebSession $session
+        }
     }
-    if ($Production){
-        $target = "pendingapproval"
-    }
-    
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/$target/progress" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $session
 }
 
 function Get-AmpOfferHistory{
     param(
-        [Parameter(Mandatory=$True, Position=0)]
-        [string]
-        $OfferId
+        [Parameter(ParameterSetName="OfferId", Mandatory=$True, Position=0)]
+        [string[]]
+        $OfferId,
+        [Parameter(ParameterSetName="OfferDraftId", Mandatory=$True, ValueFromPipelineByPropertyName)]
+        [string[]]
+        $OfferDraftId
     )
-    Invoke-RestMethod `
-            -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/history" `
-            -Headers @{
-                "Accept"= "application/json, text/javascript, */*; q=0.01"
-            } `
-            -WebSession $session
+    process{
+        if ($PSCmdlet.ParameterSetName -eq "OfferDraftId"){
+            $OfferIds = $OfferDraftId
+        } else {
+            $OfferIds = $OfferId
+        }
+        $OfferIds | %{
+            $currentOfferId=$_
+            Invoke-RestMethod `
+                -Method Get `
+                -Uri "https://publish.windowsazure.com/offers/$currentOfferId/history" `
+                -Headers @{
+                    "Accept"= "application/json, text/javascript, */*; q=0.01"
+                } `
+                -WebSession $session
+        }
+    }
 }
 
 # $inputPublisherName = "brocade_communications"
