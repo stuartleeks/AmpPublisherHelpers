@@ -19,18 +19,36 @@ function Set-AmpCookies($cookiesValue){
     $global:_amp_session = _NewWebSession $cookiesValue
 }
 
-function Get-AmpPublisher($PublisherName){
-    $user = Invoke-RestMethod `
+
+function Get-AmpUser{
+    Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/user" `
             -Headers @{
                 "Accept"= "application/json, text/javascript, */*; q=0.01"
             } `
             -WebSession $global:_amp_session
-    $publisher = $user.AccessiblePublishers | ?{ $_.Namespace -eq $PublisherName} | select -First 1
-    $publisher
 }
-function Get-AmpOffer($PublisherId) {
+function Get-AmpPublisher{
+    param(
+        [Parameter(Position=0)]
+        [string]
+        $PublisherName
+    )    
+    $user = Get-AmpUser
+    $publishers = $user.AccessiblePublishers
+    if ([string]::IsNullOrEmpty($PublisherName)){
+        $publishers
+    } else {
+        $publishers  | ?{ $_.Namespace -eq $PublisherName} | select -First 1
+    }
+}
+function Get-AmpOffer {
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $PublisherId
+    )    
     $offerlist = Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/offers/list" `
@@ -49,7 +67,12 @@ function Get-AmpOffer($PublisherId) {
 #             } `
 #             -WebSession $session
 # }
-function Get-AmpOfferServicePlans($OfferId){
+function Get-AmpOfferServicePlan{
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $OfferId
+    )
     Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/offers/$OfferId/servicePlans" `
@@ -58,7 +81,12 @@ function Get-AmpOfferServicePlans($OfferId){
             } `
             -WebSession $global:_amp_session
 }
-function Get-AmpOfferSupportAndLegal($OfferId){
+function Get-AmpOfferSupportAndLegal{
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $OfferId
+    )
     Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/offers/$OfferId/supportandlegal" `
@@ -67,16 +95,30 @@ function Get-AmpOfferSupportAndLegal($OfferId){
             } `
             -WebSession $global:_amp_session
 }
-function Get-AmpOfferMarketingMaterials($OfferId, $lang){
+function Get-AmpOfferMarketingMaterial{
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $OfferId,
+        [Parameter(Mandatory=$True, Position=1)]
+        [string]
+        $Language
+    )
+
     Invoke-RestMethod `
             -Method Get `
-            -Uri "https://publish.windowsazure.com/offers/$OfferId/marketingmaterials/$lang" `
+            -Uri "https://publish.windowsazure.com/offers/$OfferId/marketingmaterials/$Language" `
             -Headers @{
                 "Accept"= "application/json, text/javascript, */*; q=0.01"
             } `
             -WebSession $global:_amp_session
 }
-function Get-AmpOfferPrices($OfferId){
+function Get-AmpOfferPrice{
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $OfferId
+    )
     Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/offers/$OfferId/prices" `
@@ -85,7 +127,12 @@ function Get-AmpOfferPrices($OfferId){
             } `
             -WebSession $global:_amp_session
 }
-function Get-AmpOfferCategories($OfferId){
+function Get-AmpOfferCategory{
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $OfferId
+    )
     Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/offers/$OfferId/categories" `
@@ -96,7 +143,7 @@ function Get-AmpOfferCategories($OfferId){
 }
 function Get-AmpOfferPublishProgress{
     param(
-        [Parameter(Mandatory=$True)]
+        [Parameter(Mandatory=$True, Position=0)]
         $OfferId,
         [Parameter(Mandatory=$True,ParameterSetName="Staging")]
         [switch]$Staging,
@@ -119,7 +166,12 @@ function Get-AmpOfferPublishProgress{
             -WebSession $session
 }
 
-function Get-AmpOfferHistory($OfferId){
+function Get-AmpOfferHistory{
+    param(
+        [Parameter(Mandatory=$True, Position=0)]
+        [string]
+        $OfferId
+    )
     Invoke-RestMethod `
             -Method Get `
             -Uri "https://publish.windowsazure.com/offers/$OfferId/history" `
