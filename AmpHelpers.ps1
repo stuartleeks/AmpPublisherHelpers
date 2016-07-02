@@ -83,7 +83,7 @@ function Get-AmpOffer {
 #             -Headers @{
 #                 "Accept"= "application/json, text/javascript, */*; q=0.01"
 #             } `
-#             -WebSession $session
+#             -WebSession $global:_amp_session
 # }
 function Get-AmpOfferServicePlan{
     param(
@@ -257,7 +257,7 @@ function Get-AmpOfferPublishProgress{
                 -Headers @{
                     "Accept"= "application/json, text/javascript, */*; q=0.01"
                 } `
-                -WebSession $session
+                -WebSession $global:_amp_session
         }
     }
 }
@@ -285,7 +285,7 @@ function Get-AmpOfferHistory{
                 -Headers @{
                     "Accept"= "application/json, text/javascript, */*; q=0.01"
                 } `
-                -WebSession $session
+                -WebSession $global:_amp_session
         }
     }
 }
