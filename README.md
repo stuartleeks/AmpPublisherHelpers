@@ -1,4 +1,4 @@
-# AmpHelpers
+# AmpPublisherHelpers
 
 Utility functions for querying the publisher portal, e.g. to make it easier to inspect the metadata
 
@@ -8,7 +8,7 @@ WARNING ** These are unofficial, unsupported, not recommended!!!!!! Use at your 
 
 1. import the functions
 ```posh
-. ./AmpHelpers.ps1
+. ./AmpPublisherHelpers.ps1
 ```
 
 1. Sign into the publisher portal and load the F12 tools. Grab the cookies for one of the requests and then run `Set-AmpCookies`, e.g. 
